@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import Nav from '../components/Nav.astro'
+import Socials from '../components/SocialLink.astro'
 ---
 
 <html lang="en">
@@ -9,7 +10,7 @@ import Nav from '../components/Nav.astro'
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} >
-    <title>Astro</title>
+    <title>Brian Mati</title>
   </head>
   <body class="bg-primary p-4 text-lightCream ">
   <div class="container max-w-lg mt-[10%]  flex flex-col items-start mx-auto ">
@@ -17,6 +18,9 @@ import Nav from '../components/Nav.astro'
     <h1 class="text-lightCream text-3xl font-battambang font-bold">Brian Mati  </h1>
     <p class="text-gray-600 font-bold text-3xl">Crafting digital experiences with code</p>
     <p  class="leading-7">As a person, I’m driven by curiosity — I love to break things down to their core elements, understand how they work, and then reconstruct them in a way that makes sense to me. As a developer, I’m passionate about writing code that not only delivers a seamless user experience but also conveys the intended message with clarity and elegance. For me, great code isn’t just functional — it’s expressive.</p>
+    <Socials/>
   </div>
+
+  
   </body>
 </html>
