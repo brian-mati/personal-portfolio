@@ -17,18 +17,18 @@ import SocialLink from '../components/SocialLink.astro'
     <Nav />
     <form action="https://formbold.com/s/92WqW" method="POST" class="flex flex-col gap-8 mt-3.5" id="contactForm">
         <div>
-            <input type="text" placeholder="Name" name="name" id="name" class="p-2  w-full" required aria-required="true" />
+            <input type="text" placeholder="Name" name="name" id="name" class="p-2 w-full" required aria-required="true" />
             <p id="name-error" class="text-red-800 text-sm font-bold hidden">Name is required</p>
         </div>
 
         <div>
             <input type="email" placeholder="Email" name="email" id="email" class="p-2 w-full" required aria-required="true" />
-            <p id="email-error" class="text-red-800 text-sm font-bold hidden">Valid email is required</p>
+            <p id="email-error" class="text-red-800 text-sm font-bold hidden">Enter a valid email address</p>
         </div>
 
         <div>
-            <input type="text" placeholder="Phone number" name="phone" id="phone" class="p-2 w-full"  maxlength="10" required aria-required = "true" />
-            <p id="phone-error" class="text-red-800 text-sm font-bold hidden">Phone number is required</p>
+            <input type="text" placeholder="Phone number" name="phone" id="phone" class="p-2 w-full" maxlength="10" required aria-required="true" />
+            <p id="phone-error" class="text-red-800 text-sm font-bold hidden">Enter a valid 10-digit phone number</p>
         </div>
 
         <button type="submit" class="border-2 border-lightCream rounded-lg p-2" id="submit-button">Submit</button>
@@ -42,9 +42,21 @@ import SocialLink from '../components/SocialLink.astro'
     const submitButton = document.getElementById('submit-button');
 
     const fields = [
-        { id: 'name', errorId: 'name-error', validate: (val) => val.trim() !== '' },
-        { id: 'email', errorId: 'email-error', validate: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) },
-        { id: 'phone', errorId: 'phone-error', validate: (val) => val.trim() !== '' }
+        {
+            id: 'name',
+            errorId: 'name-error',
+            validate: (val) => val.trim() !== ''
+        },
+        {
+            id: 'email',
+            errorId: 'email-error',
+            validate: (val) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val)
+        },
+        {
+            id: 'phone',
+            errorId: 'phone-error',
+            validate: (val) => /^[0-9]{10}$/.test(val)
+        }
     ];
 
     function validateField(field) {
@@ -61,14 +73,14 @@ import SocialLink from '../components/SocialLink.astro'
         }
     }
 
-    // Live validation (optional, for better UX)
+    // Live validation (optional - improves UX)
     fields.forEach(field => {
         const input = document.getElementById(field.id);
         input.addEventListener('input', () => validateField(field));
     });
 
     form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Stop actual submission until validated
+        e.preventDefault();
 
         let allValid = true;
 
@@ -78,13 +90,11 @@ import SocialLink from '../components/SocialLink.astro'
         });
 
         if (allValid) {
-            // Form is valid, set processing text
             submitButton.innerText = 'Processing...';
 
-            // Optional: Simulate a delay (e.g., waiting for real form submission response)
             setTimeout(() => {
-                submitButton.innerText = 'Submit'; // Reset button
-                form.submit(); // Manually trigger form submission after validation
+                submitButton.innerText = 'Submit';
+                form.submit();
             }, 1500);
         }
     });
